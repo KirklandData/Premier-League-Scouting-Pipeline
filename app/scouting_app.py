@@ -8,31 +8,40 @@ st.set_page_config(page_title="Kirkland Data Engine", layout="wide")
 st.title("⚽ Premier League Scouting Intelligence Matrix")
 st.markdown("### Production-Ready Data Engineering Analytics Dashboard")
 
-# Define our database and raw folder locations
+# Define file system pathways
 db_path = "data/scouting_vault.duckdb"
 raw_data_path = "data/raw/fixtures_snapshot.json"
 
-# AUTOMATED CLOUD FIX: If the database does not exist on the server, build it inline
+# =========================================================================
+-- SYSTEM CORRECTION: Connect in write-mode first so the server can build files
+# =========================================================================
 if not os.path.exists(db_path):
-    st.info("📦 First-time deployment detected. Running internal SQL models...")
+    st.info("📦 Initialising backend server storage volumes. Compiling models...")
     
-    # 1. Force download raw data if missing
+    # 1. Pull down raw text arrays over HTTPS if missing
     if not os.path.exists(raw_data_path):
         from extract.fetch_fixtures import fetch_live_data
         fetch_live_data()
         
-    # 2. Trigger the orchestrator to build our 3 SQL layers
+    # 2. Open temporary connection in WRITE mode to establish the warehouse
+    conn = duckdb.connect(db_path, read_only=False)
+    conn.close()
+    
+    # 3. Trigger orchestrator to execute the 3 SQL transformation layers
     from run_models import build_data_infrastructure
     build_data_infrastructure()
-    st.success("✅ Database compiled successfully!")
+    st.success("✅ Database structures successfully built!")
 
-# Now proceed with reading the clean data mart table safely
+# =========================================================================
+-- READ LAYER: Safely read the clean data mart metrics
+# =========================================================================
 try:
+    # Open connection securely to load the compiled scout data mart
     conn = duckdb.connect(db_path, read_only=True)
     df = conn.execute("SELECT * FROM mart_scouting_fixtures").df()
     conn.close()
     
-    # Render High-Level Metric Cards
+    # Render High-Level Metric Summary Boxes
     c1, c2, c3 = st.columns(3)
     c1.metric("Total Match Profiles Loaded", len(df))
     c2.metric("Total Goals Scored", int(df["total_goals"].sum()))
@@ -40,7 +49,7 @@ try:
     
     st.markdown("---")
     
-    # Interactive Sidebar UI Filters
+    # User Interactive Sidebar Filter Panel
     st.sidebar.header("Scouting Filters")
     selected_team = st.sidebar.selectbox("Filter by Specific Football Club", ["All Clubs"] + list(df["home_team"].unique()))
     
@@ -56,4 +65,4 @@ try:
     st.dataframe(display_df, use_container_width=True)
 
 except Exception as e:
-    st.error(f"❌ System Linkage Error: {e}")
+    st.error(f"❌ Read Layer Linkage Exception: {e}")
