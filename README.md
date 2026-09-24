@@ -19,7 +19,8 @@ Instead of putting all my code into one massive file, I built this pipeline like
 3. **The Quality Inspector** (*tests/test_pipeline.py*): Before the data is allowed out, this script checks our tables to ensure no blank numbers or negative fields accidentally leaked through our system.
 4. **The Display Counter** (*app/scouting_app.py*): This uses a tool called **Streamlit** to read the clean database tables and draw the bar charts and grids directly on a web page screen.
 
-**Safe Re-runs (Idempotency):** Every time you run the master pipeline script (`python run_models.py`), the database completely wipes the old tables and builds them brand new from the original raw download file. This means you can run the pipeline a hundred times in a row and it will always give you the exact same clean results without cluttering or doubling the rows.
+**Safe Re-runs (Idempotency):** Every time you run the master pipeline script (`python run_models.py`), the database completely wipes the old tables and builds them brand new from the original raw download file. 
+This means you can run the pipeline a hundred times in a row and it will always give you the exact same clean results without cluttering or doubling the rows.
 
 ## How to run the system
 ```bash
