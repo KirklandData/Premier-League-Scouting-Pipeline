@@ -39,7 +39,7 @@ streamlit run app/scouting_app.py
 ```
 
 ## Future Upgrades
-- **Automatic Cloud Timers:** Schedule the pipeline to wake up and run by itself every Sunday at midnight so the data stays fresh without human intervention.
+- **Automatic Cloud Timers:** Schedule the pipeline to wake up and run by itself every Sunday at midnight so the data stays fresh without human intervention (w/Python).
 - **Leagues Dropdown:** Add a menu to allow scouts to switch between English Premier League, Spanish La Liga, or World Cup match sets without editing the underlying code templates.
 
 ## Where AI helped
