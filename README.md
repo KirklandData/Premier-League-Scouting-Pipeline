@@ -1,8 +1,8 @@
-# Premier League Match Finder Pipeline
+# Premier League Match Analysis Pipeline
 
 This is an automated data pipeline built to help football scouts, club managers, and match analysts look at clean team statistics easily. The system downloads messy match logs from the web, runs them through cleaning steps inside a local database filing cabinet, and displays the outcomes clearly on a web dashboard screen.
 
-## What I built and who it is for
+## What I built/Who It Is For
 I built this project for football scouts who need reliable match numbers without dealing with chaotic, broken data sheets. 
 
 The software goes out to the web, fetches raw match logs, checks for missing data points, and fixes them automatically. It then loads the clean results into an interactive web screen with simple dropdown filters so users can check scoring statistics, track crowd sizes, or spot high-scoring matches instantly.
@@ -38,11 +38,11 @@ python -m pytest tests/
 streamlit run app/scouting_app.py
 ```
 
-## Future Upgrades
+## Possible Extensions
 - **Automatic Cloud Timers:** Schedule the pipeline to wake up and run by itself every Sunday at midnight so the data stays fresh without human intervention (w/Python).
 - **Leagues Dropdown:** Add a menu to allow scouts to switch between English Premier League, Spanish La Liga, or World Cup match sets without editing the underlying code templates.
 
-## Where AI helped
+## AI Support
 In compliance with the Data School guidelines, I used an AI assistant as a pair-programmer to write this code. Specifically, the AI helped me draft the precise file-path text syntax needed for DuckDB to locate and parse raw JSON text strings, and helped generate the template structures for our testing files (`pytest`). All core architectural logic paths—such as choosing football data, setting up the three cleaning layers, choosing to drop null scores, and designing the total goals metric—were completely directed, validated, and finalized by myself.
 
 
