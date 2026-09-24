@@ -48,3 +48,4 @@ streamlit run app/scouting_app.py
 In compliance with the Data School guidelines, I used an AI assistant as a pair-programmer to write this code. 
 Specifically, the AI helped me draft the precise file-path text syntax needed for DuckDB to locate and parse raw JSON text strings, and helped generate the template structures for our testing files (`pytest`). 
 All core architectural logic paths—such as choosing football data, setting up the three cleaning layers, choosing to drop null scores, and designing the total goals metric—were completely directed, validated, and finalized by myself.
+
