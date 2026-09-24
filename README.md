@@ -7,6 +7,11 @@ I built this project for football scouts who need reliable match numbers without
 
 The software goes out to the web, fetches raw match logs, checks for missing data points, and fixes them automatically. It then loads the clean results into an interactive web screen with simple dropdown filters so users can check scoring statistics, track crowd sizes, or spot high-scoring matches instantly.
 
+## The data
+The project uses the free, open-source football data from the StatsBomb API. It does not require any passwords or API keys to use.
+
+The data starts as a large, messy text file tracking match events. The extraction script goes out to the web, fetches this text file, and saves it safely in our raw folder as a backup file. All the cleaning and sorting is done inside our database tables, not on the website itself.
+
 ## How the data moves (Step-by-Step)
 Instead of putting all my code into one massive file, I built this pipeline like a clean professional kitchen with separate work areas:
 
