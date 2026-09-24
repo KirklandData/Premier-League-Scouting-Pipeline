@@ -1,4 +1,4 @@
-# Premier League Match Analysis Pipeline
+# Premier League Match Metrics Pipeline
 
 This is an automated data pipeline built to help football scouts, club managers, and match analysts look at clean team statistics easily. The system downloads messy match logs from the web, runs them through cleaning steps inside a local database filing cabinet, and displays the outcomes clearly on a web dashboard screen.
 
