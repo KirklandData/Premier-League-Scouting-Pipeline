@@ -1,68 +1,43 @@
 import streamlit as st
 import duckdb
 import pandas as pd
-import os
 
-st.set_page_config(page_title="Kirkland Data Engine", layout="wide")
+st.set_page_config(page_title="Kirkland Data Systems Engine", layout="wide")
 
-st.title("⚽ Premier League Scouting Intelligence Matrix")
-st.markdown("### Production-Ready Data Engineering Analytics Dashboard")
+st.title("⚽ Premier League Analytics Framework")
+st.markdown("### Production-Grade Cloud Analytics & Data Engineering Mart Interface")
 
-# Define file system pathways
 db_path = "data/scouting_vault.duckdb"
-raw_data_path = "data/raw/fixtures_snapshot.json"
 
-# =========================================================================
--- SYSTEM CORRECTION: Connect in write-mode first so the server can build files
-# =========================================================================
-if not os.path.exists(db_path):
-    st.info("📦 Initialising backend server storage volumes. Compiling models...")
-    
-    # 1. Pull down raw text arrays over HTTPS if missing
-    if not os.path.exists(raw_data_path):
-        from extract.fetch_fixtures import fetch_live_data
-        fetch_live_data()
-        
-    # 2. Open temporary connection in WRITE mode to establish the warehouse
-    conn = duckdb.connect(db_path, read_only=False)
-    conn.close()
-    
-    # 3. Trigger orchestrator to execute the 3 SQL transformation layers
-    from run_models import build_data_infrastructure
-    build_data_infrastructure()
-    st.success("✅ Database structures successfully built!")
-
-# =========================================================================
--- READ LAYER: Safely read the clean data mart metrics
-# =========================================================================
 try:
-    # Open connection securely to load the compiled scout data mart
     conn = duckdb.connect(db_path, read_only=True)
     df = conn.execute("SELECT * FROM mart_scouting_fixtures").df()
     conn.close()
     
-    # Render High-Level Metric Summary Boxes
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Total Match Profiles Loaded", len(df))
-    c2.metric("Total Goals Scored", int(df["total_goals"].sum()))
-    c3.metric("High Action Outlier Games (4+ Goals)", int(df["is_high_scoring_fixture"].sum()))
+    # Display high-level metric cards
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Total Match Profiles Logged", len(df))
+    m2.metric("Total Attacking Goal Actions", int(df["total_goals"].sum()))
+    m3.metric("High Action Games (4+ Goals)", int(df["is_high_scoring_fixture"].sum()))
     
     st.markdown("---")
     
-    # User Interactive Sidebar Filter Panel
-    st.sidebar.header("Scouting Filters")
-    selected_team = st.sidebar.selectbox("Filter by Specific Football Club", ["All Clubs"] + list(df["home_team"].unique()))
+    # Interactive Sidebar Layout Controls
+    st.sidebar.header("Scouting Parameter Filters")
+    selected_club = st.sidebar.selectbox("Filter by Specific Football Club", ["All Clubs"] + list(df["home_team"].unique()))
     
     display_df = df
-    if selected_team != "All Clubs":
-        display_df = df[(df["home_team"] == selected_team) | (df["away_team"] == selected_team)]
+    if selected_club != "All Clubs":
+        display_df = df[(df["home_team"] == selected_club) | (df["away_team"] == selected_club)]
         
-    st.subheader("📊 Goal Scoring Volume Profiles")
-    scoring_data = df.groupby("home_team")["home_score"].sum().sort_values(ascending=False)
-    st.bar_chart(scoring_data)
+    # Visual Charting Engine
+    st.subheader("📊 Goal Aggregation Frequency Profiles")
+    scoring_distribution = df.groupby("home_team")["home_score"].sum().sort_values(ascending=False)
+    st.bar_chart(scoring_distribution)
     
-    st.subheader("📋 Clean Processed Data Warehouse Table View")
+    # Flat Data Table Matrix View
+    st.subheader("📋 Production Datamart Ingestion Preview")
     st.dataframe(display_df, use_container_width=True)
 
 except Exception as e:
-    st.error(f"❌ Read Layer Linkage Exception: {e}")
+    st.error(f"❌ Data connection exception occurred: {e}. Please ensure python run_models.py has been executed to construct database files.")
