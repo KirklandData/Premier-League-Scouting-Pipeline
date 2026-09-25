@@ -22,11 +22,13 @@ def fetch_live_data(n_matches: int = 200, seed: int = 42) -> bool:
         home = rng.choice(TEAMS)
         away = rng.choice([t for t in TEAMS if t != home])
         fixtures.append({
-            "date": str(start + timedelta(days=3 * i)),
-            "home_team": home,
-            "away_team": away,
+            "match_id": i + 1,
+            "match_date": str(start + timedelta(days=3 * i)),
+            "home_team": {"home_team_name": home},
+            "away_team": {"away_team_name": away},
             "home_score": rng.randint(0, 4),
             "away_score": rng.randint(0, 3),
+            "attendance": rng.randint(18000, 62000),
         })
 
     try:
