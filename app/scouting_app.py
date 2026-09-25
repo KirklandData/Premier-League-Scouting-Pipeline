@@ -19,6 +19,11 @@ db_path = os.path.join(base_dir, "data", "scouting_vault.duckdb")
 # Run models automatically to generate the database asset if missing on cloud boot
 if not os.path.exists(db_path):
     with st.spinner("📦 First-time deployment detected. Initialising DuckDB SQL schemas..."):
+        # STEP 1: Force download raw data into folder paths first
+        from extract.fetch_fixtures import fetch_live_data
+        fetch_live_data()
+        
+        # STEP 2: Trigger database modeller to compile the 3 SQL layers
         from run_models import build_data_infrastructure
         build_data_infrastructure()
     st.success("✅ Database structures successfully built!")
