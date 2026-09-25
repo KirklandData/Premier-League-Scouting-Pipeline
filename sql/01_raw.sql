@@ -1,9 +1,18 @@
-SELECT 
-    element.match_id::INT as match_id,
-    element.match_date::VARCHAR as match_date,
-    element.home_team.home_team_name::VARCHAR as home_team,
-    element.away_team.away_team_name::VARCHAR as away_team,
-    element.home_score::INT as home_score,
-    element.away_score::INT as away_score,
-    element.attendance::INT as attendance
-FROM read_json_auto('data/raw/*.json') as element;
+SELECT
+    ROW_NUMBER() OVER (ORDER BY match_date) AS match_id,
+    match_date,
+    HomeTeam AS home_team,
+    AwayTeam AS away_team,
+    TRY_CAST(FTHG AS INTEGER) AS home_score,
+    TRY_CAST(FTAG AS INTEGER) AS away_score,
+    NULL AS attendance  -- this free public results feed does not publish official attendance figures
+FROM (
+    SELECT
+        *,
+        COALESCE(
+            TRY_STRPTIME(Date, '%d/%m/%Y'),
+            TRY_STRPTIME(Date, '%d/%m/%y')
+        )::DATE AS match_date
+    FROM read_csv_auto('data/raw/fixtures_snapshot.csv')
+)
+WHERE HomeTeam IS NOT NULL AND AwayTeam IS NOT NULL;
