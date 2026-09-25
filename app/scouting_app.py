@@ -45,7 +45,6 @@ def build_demo_dataframe(n_matches: int = 200, seed: int = 42) -> pd.DataFrame:
 
 raw_df = build_demo_dataframe()
 
-# Push through an in-memory DuckDB connection so the "SQL mart" story stays intact
 conn = duckdb.connect(":memory:")
 conn.register("raw_matches", raw_df)
 df = conn.execute("""
@@ -61,10 +60,6 @@ df = conn.execute("""
     ORDER BY match_date
 """).df()
 conn.close()
-
-# =========================================================================
-# DASHBOARD
-# =========================================================================
 
 st.success("✅ Database compiled successfully!")
 
