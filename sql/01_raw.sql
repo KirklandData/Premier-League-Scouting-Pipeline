@@ -1,15 +1,15 @@
 SELECT 
-    -- Double-check for both 2-digit and 4-digit variations to ensure complete resilience
+    -- Read columns by their position index to completely bypass header spelling issues
     COALESCE(
-        TRY_STRPTIME(Date::VARCHAR, '%d/%m/%y')::DATE,
-        TRY_STRPTIME(Date::VARCHAR, '%d/%m/%Y')::DATE
+        TRY_STRPTIME(column0::VARCHAR, '%d/%m/%y')::DATE,
+        TRY_STRPTIME(column0::VARCHAR, '%d/%m/%Y')::DATE
     ) as match_date,
-    HomeTeam::VARCHAR as home_team,
-    AwayTeam::VARCHAR as away_team,
-    FTHG::INT as home_score,
-    FTAG::INT as away_score
+    column1::VARCHAR as home_team,
+    column2::VARCHAR as away_team,
+    column3::INT as home_score,
+    column4::INT as away_score
 FROM read_csv('data/raw/fixtures_snapshot.csv', 
-              header=True, 
+              header=False, 
+              skip=1,
               delim=',', 
-              auto_detect=True, 
-              ignore_errors=True);
+              auto_detect=True);
