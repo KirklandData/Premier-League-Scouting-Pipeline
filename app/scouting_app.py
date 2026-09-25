@@ -16,20 +16,24 @@ st.markdown("### Production-Grade Cloud Analytics & Data Engineering Mart")
 
 db_path = os.path.join(base_dir, "data", "scouting_vault.duckdb")
 
-# Run models automatically to generate the database asset if missing on cloud boot
+# SYSTEM DIRECTORY PATH RESOLUTION: Force the build process using a clean write-mode connection
 if not os.path.exists(db_path):
     with st.spinner("📦 First-time deployment detected. Initialising DuckDB SQL schemas..."):
-        # STEP 1: Force download raw data into folder paths first
+        # 1. Force download raw data into folder paths first
         from extract.fetch_fixtures import fetch_live_data
         fetch_live_data()
         
-        # STEP 2: Trigger database modeller to compile the 3 SQL layers
+        # 2. Establish a write-mode bridge connection to ensure the file path is securely initialized
+        conn = duckdb.connect(db_path, read_only=False)
+        conn.close()
+        
+        # 3. Trigger database modeller to compile the 3 SQL layers
         from run_models import build_data_infrastructure
         build_data_infrastructure()
     st.success("✅ Database structures successfully built!")
 
 try:
-    # Read the final analytical dataset mart table
+    # Read the final analytical dataset mart table cleanly
     conn = duckdb.connect(db_path, read_only=True)
     df = conn.execute("SELECT * FROM mart_scouting_fixtures").df()
     conn.close()
