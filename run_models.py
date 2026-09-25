@@ -6,6 +6,8 @@ ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
 def build_data_infrastructure():
     print("🚀 Database Engine: Connecting to local cloud storage vault...")
 
+    os.chdir(ROOT_DIR)  # guarantees relative SQL paths (e.g. in 01_raw.sql) always resolve correctly
+
     data_dir = os.path.join(ROOT_DIR, "data")
     os.makedirs(data_dir, exist_ok=True)
     db_path = os.path.join(data_dir, "scouting_vault.duckdb")
