@@ -2,15 +2,24 @@ import streamlit as st
 import duckdb
 import pandas as pd
 import os
+import sys
+
+# =========================================================================
+# SYSTEM DIRECTORY PATH GATEKEEPER (Fixes ModuleNotFoundError on Cloud Boot)
+# =========================================================================
+# This dynamically appends the root repository folder to Python's search path
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
 
 st.set_page_config(page_title="Kirkland Data Engine", layout="wide")
 
 st.title("⚽ Premier League Scouting Analytics Interface")
 st.markdown("### Production-Grade Cloud Analytics & Data Engineering Mart")
 
-# Set paths to our file loading bays
-db_path = "data/scouting_vault.duckdb"
-raw_data_path = "data/raw/fixtures_snapshot.json"
+# Set paths to our file loading bays relative to the root project directory
+db_path = os.path.join(root_dir, "data", "scouting_vault.duckdb")
+raw_data_path = os.path.join(root_dir, "data", "raw", "fixtures_snapshot.json")
 
 # AUTOMATED INITIALISATION GATE: Build the warehouse if the cloud server is blank
 if not os.path.exists(db_path):
@@ -57,4 +66,3 @@ try:
 
 except Exception as e:
     st.error(f"❌ Read Layer Linkage Exception: {e}")
-
