@@ -6,6 +6,7 @@ SELECT
     away_score
 FROM raw_matches
 WHERE 
-    home_score IS NOT NULL 
+    match_date IS NOT NULL
+    AND home_team IS NOT NULL
+    AND home_score IS NOT NULL 
     AND away_score IS NOT NULL;
-
