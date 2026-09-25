@@ -6,4 +6,4 @@ SELECT
     element.home_score::INT as home_score,
     element.away_score::INT as away_score,
     element.attendance::INT as attendance
-FROM read_json_auto('data/raw/fixtures_snapshot.json') as element;
+FROM read_json_auto('data/raw/*.json') as element;
