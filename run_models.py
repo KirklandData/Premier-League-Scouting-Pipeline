@@ -1,61 +1,60 @@
-import streamlit as st
 import duckdb
-import pandas as pd
 import os
 import sys
 
-# Dynamic root directory resolution
-base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if base_dir not in sys.path:
-    sys.path.insert(0, base_dir)
-
-st.set_page_config(page_title="Kirkland Data Engine", layout="wide")
-
-st.title("⚽ Premier League Scouting Analytics Interface")
-st.markdown("### Production-Grade Cloud Analytics & Data Engineering Mart")
-
-db_path = os.path.join(base_dir, "data", "scouting_vault.duckdb")
-
-# Run models automatically to generate the database asset if missing on cloud boot
-if not os.path.exists(db_path):
-    with st.spinner("📦 First-time deployment detected. Initialising DuckDB SQL schemas..."):
-        # FORCE INGESTION RUN FIRST: Pull down the raw CSV data to disk paths
-        from extract.fetch_fixtures import fetch_live_data
-        fetch_live_data()
+def build_data_infrastructure():
+    print("🚀 Initialising DuckDB Core Modeller...")
+    
+    # Resolve directory paths relative to this script location
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(base_dir, "data")
+    sql_dir = os.path.join(base_dir, "sql")
+    db_path = os.path.join(data_dir, "scouting_vault.duckdb")
+    
+    os.makedirs(data_dir, exist_ok=True)
+    
+    # Force a clean slate by deleting any stale or locked database file
+    if os.path.exists(db_path):
+        try:
+            os.remove(db_path)
+            print("💥 Stale database file successfully cleared.")
+        except Exception:
+            pass
+            
+    # Establish a fresh connection in write-mode to compile the schemas
+    conn = duckdb.connect(db_path, read_only=False)
+    
+    try:
+        # Drop existing tables to break open cached structures completely
+        conn.execute("DROP TABLE IF EXISTS mart_scouting_fixtures;")
+        conn.execute("DROP TABLE IF EXISTS staging_matches;")
+        conn.execute("DROP TABLE IF EXISTS raw_matches;")
         
-        # Now run the database modeller to execute the 3 SQL layers
-        from run_models import build_data_infrastructure
-        build_data_infrastructure()
-    st.success("✅ Database structures successfully built!")
-
-try:
-    # Read the final analytical dataset mart table
-    conn = duckdb.connect(db_path, read_only=True)
-    df = conn.execute("SELECT * FROM mart_scouting_fixtures").df()
-    conn.close()
-    
-    # High-Level Summary Metric Cards
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Total Match Profiles Tracked", len(df))
-    c2.metric("Total Attacking Goals", int(df["total_goals"].sum()))
-    c3.metric("High Scoring Games (4+ Goals)", int(df["is_high_scoring_fixture"].sum()))
-    
-    st.markdown("---")
-    
-    # Sidebar Filter Controls
-    st.sidebar.header("Scouting Filters")
-    selected_team = st.sidebar.selectbox("Isolate Specific Football Club", ["All Clubs"] + list(df["home_team"].unique()))
-    
-    display_df = df
-    if selected_team != "All Clubs":
-        display_df = df[(df["home_team"] == selected_team) | (df["away_team"] == selected_team)]
+        # Step 1: Compile the Raw Ingestion Layer
+        with open(os.path.join(sql_dir, "01_raw.sql"), "r") as file:
+            sql_raw = file.read()
+        conn.execute(f"CREATE TABLE raw_matches AS {sql_raw}")
+        print("📁 SQL Layer 01 (Raw Table Data) Compiled.")
         
-    st.subheader("📊 Goal Scoring Distribution Profiles")
-    scoring_data = df.groupby("home_team")["home_score"].sum().sort_values(ascending=False)
-    st.bar_chart(scoring_data)
-    
-    st.subheader("📋 Clean Processed Data Warehouse Table View")
-    st.dataframe(display_df, use_container_width=True)
+        # Step 2: Compile the Staging Cleansing Layer
+        with open(os.path.join(sql_dir, "02_staging.sql"), "r") as file:
+            sql_staging = file.read()
+        conn.execute(f"CREATE TABLE staging_matches AS {sql_staging}")
+        print("🧹 SQL Layer 02 (Clean Staging Data) Compiled.")
+        
+        # Step 3: Compile the Final Datamart Layer
+        with open(os.path.join(sql_dir, "03_marts.sql"), "r") as file:
+            sql_marts = file.read()
+        conn.execute(f"CREATE TABLE mart_scouting_fixtures AS {sql_marts}")
+        print("📊 SQL Layer 03 (Scout Datamart) Locked.")
+        
+    except Exception as e:
+        print(f"❌ Critical Pipeline Failure: {e}")
+        raise e
+    finally:
+        conn.close()
 
-except Exception as e:
-    st.error(f"❌ Read Layer Linkage Exception: {e}")
+if __name__ == "__main__":
+    from extract.fetch_fixtures import fetch_live_data
+    fetch_live_data()
+    build_data_infrastructure()
