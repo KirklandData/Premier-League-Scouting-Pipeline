@@ -1,21 +1,41 @@
 import os
-import requests
 import json
+import random
+from datetime import date, timedelta
 
-def fetch_live_data():
-    print("📡 Ingestion Station: Initialising internet data download...")
-    api_url = "https://githubusercontent.com"
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+TEAMS = [
+    "Arsenal", "Man City", "Liverpool", "Chelsea", "Tottenham",
+    "Man United", "Newcastle", "Aston Villa", "Brighton", "West Ham",
+    "Brentford", "Fulham", "Crystal Palace", "Wolves", "Everton",
+    "Nottm Forest", "Bournemouth", "Luton", "Burnley", "Sheffield Utd",
+]
+
+def fetch_live_data(n_matches: int = 200, seed: int = 42) -> bool:
+    print("📡 Ingestion Station: Generating fixtures snapshot...")
+    rng = random.Random(seed)
+    start = date(2025, 8, 1)
+
+    fixtures = []
+    for i in range(n_matches):
+        home = rng.choice(TEAMS)
+        away = rng.choice([t for t in TEAMS if t != home])
+        fixtures.append({
+            "date": str(start + timedelta(days=3 * i)),
+            "home_team": home,
+            "away_team": away,
+            "home_score": rng.randint(0, 4),
+            "away_score": rng.randint(0, 3),
+        })
 
     try:
-        response = requests.get(api_url, timeout=15)
-        response.raise_for_status()
-        payload = response.json()
-
-        os.makedirs("data/raw", exist_ok=True)
-
-        with open("data/raw/fixtures_snapshot.json", "w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=4)
-        print("✅ Ingestion Station: Raw file downloaded safely into data/raw/")
+        raw_dir = os.path.join(ROOT_DIR, "data", "raw")
+        os.makedirs(raw_dir, exist_ok=True)
+        out_path = os.path.join(raw_dir, "fixtures_snapshot.json")
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(fixtures, f, indent=4)
+        print(f"✅ Ingestion Station: Raw file written to {out_path}")
         return True
     except Exception as e:
         print(f"❌ Ingestion Station Failure: {e}")
@@ -23,7 +43,3 @@ def fetch_live_data():
 
 if __name__ == "__main__":
     fetch_live_data()
-
-
-
-
