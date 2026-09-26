@@ -113,3 +113,4 @@ streamlit run app/scouting_app.py
 ## Where AI helped
 An AI assistant was deployed as a pair-programmer to write this code. 
 Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility, file-path handling, and dependency resolution), helped me draft the precise SQL syntax needed for DuckDB to parse the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions - choosing a real, free, verifiable data source over invented data, setting up the three cleaning layers, choosing to drop null scores, deciding how to handle missing attendance honestly rather than fabricating it, and designing the total goals metric - were conceived and directed by myself.
+
