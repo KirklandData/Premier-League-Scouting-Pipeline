@@ -50,4 +50,9 @@ st.bar_chart(scoring_data)
 st.subheader("📋 Clean Processed Data Warehouse Table View")
 display_df = display_df.copy()
 display_df["match_date"] = display_df["match_date"].dt.strftime("%Y-%m-%d")
+
+# Move clean_attendance to the very last column, regardless of its position in the SQL layer
+column_order = [c for c in display_df.columns if c != "clean_attendance"] + ["clean_attendance"]
+display_df = display_df[column_order]
+
 st.dataframe(display_df, use_container_width=True, hide_index=True)
