@@ -89,18 +89,17 @@ streamlit run app/scouting_app.py
 
 ## What I would do next
 - Multi-season history: Extend the extraction step to pull several past
-  seasons at once, so scouts can compare a team's form year over year, not
-  just within a single season.
+  seasons at once, so scouts can compare a team's form year over year to establish trends/faultlines, not just within a single season.
 - Automatic Cloud Timers: Schedule the pipeline to wake up and run itself
   every Sunday at midnight so the data stays fresh without human intervention
-  once a season is live.
+  once a season is live (with use of python).
 - Leagues Dropdown: Add a menu to allow scouts to switch between English
   Premier League, Spanish La Liga, or other divisions, since
   football-data.co.uk publishes results for multiple leagues in the same
   simple format.
 
 ## Where AI helped
-In compliance with the Data School guidelines, I used an AI assistant as a
+I used an AI assistant as a
 pair-programmer to write this code. Specifically, the AI helped me debug a
 chain of deployment issues on Streamlit Cloud (Python version incompatibility,
 file-path handling, and dependency resolution), helped me draft the precise
@@ -108,7 +107,5 @@ SQL syntax needed for DuckDB to parse the downloaded CSV file, and helped
 generate the template structures for our testing files (pytest). All core
 architectural decisions — choosing a real, free, verifiable data source over
 invented data, setting up the three cleaning layers, choosing to drop null
-scores, deciding how to handle missing attendance honestly rather than
-fabricating it, and designing the total goals metric — were directed,
-validated, and finalized by myself.
-```
+scores (use of when sth is not null), deciding how to handle missing attendance honestly rather than
+fabricating it (coalesce), and designing the total goals metrics (calculations) — were crafted by myself.
