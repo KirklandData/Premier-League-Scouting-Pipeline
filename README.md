@@ -121,4 +121,3 @@ invented data, setting up the three cleaning layers, choosing to drop null
 scores, deciding how to handle missing attendance honestly rather than
 fabricating it, and designing the total goals metric — were directed,
 validated, and finalized by myself.
-```
