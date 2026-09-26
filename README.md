@@ -1,4 +1,4 @@
-# Premier League Match Finder Pipeline
+## Premier League Match Finder Pipeline
 
 This is an automated data pipeline built to help football scouts, club managers,
 and match analysts look at clean team statistics easily. The system downloads a
@@ -46,7 +46,7 @@ at download time.
 ## How it works
 The pipeline uses a lightweight database engine called DuckDB to run three
 separate SQL cleaning layers one after the other. This process is triggered
-by running python run_models.py.
+by running `python run_models.py`.
 
 1. raw_matches (sql/01_raw.sql): Reads the real downloaded results file and
    turns it into a simple grid layout — one row per match, with the date,
@@ -58,8 +58,8 @@ by running python run_models.py.
    so it does not break our math calculations later.
 3. mart_scouting_fixtures (sql/03_marts.sql): This is our final, neat summary
    table. It checks for duplicate records to ensure every match only appears
-   once. It also creates simple tick-boxes, like highlighting matches that
-   had 4 or more goals.
+   once. It also creates a simple tick-box, highlighting matches that had 4
+   or more goals.
 
 Finally, the Streamlit app (app/scouting_app.py) reads this clean summary
 table and draws the metrics, bar chart, and grid directly on a web page.
@@ -71,35 +71,46 @@ results, without ever duplicating rows.
 
 ## How to run the system
 
-Step 1 — Download this project folder from GitHub:
+**Step 1 — Download this project folder from GitHub:**
+```bash
 git clone https://github.com/KirklandData/Premier-League-Scouting-Pipeline
 cd Premier-League-Scouting-Pipeline
+```
 
-Step 2 — Install the necessary packages:
+**Step 2 — Install the necessary packages:**
+```bash
 pip install -r requirements.txt
+```
 
-Step 3 — Download the real season data and run the database cleaning models:
+**Step 3 — Download the real season data and run the database cleaning models:**
+```bash
 python run_models.py
+```
 
-Step 4 — Run the automated data quality checks:
+**Step 4 — Run the automated data quality checks:**
+```bash
 python -m pytest tests/
+```
 
-Step 5 — Launch the web dashboard screen on your browser:
+**Step 5 — Launch the web dashboard screen on your browser:**
+```bash
 streamlit run app/scouting_app.py
+```
 
 ## What I would do next
 - Multi-season history: Extend the extraction step to pull several past
-  seasons at once, so scouts can compare a team's form year over year to establish trends/faultlines, not just within a single season.
+  seasons at once, so scouts can compare a team's form year over year, not
+  just within a single season.
 - Automatic Cloud Timers: Schedule the pipeline to wake up and run itself
   every Sunday at midnight so the data stays fresh without human intervention
-  once a season is live (with use of python).
+  once a season is live.
 - Leagues Dropdown: Add a menu to allow scouts to switch between English
   Premier League, Spanish La Liga, or other divisions, since
   football-data.co.uk publishes results for multiple leagues in the same
   simple format.
 
 ## Where AI helped
-I used an AI assistant as a
+In compliance with the Data School guidelines, I used an AI assistant as a
 pair-programmer to write this code. Specifically, the AI helped me debug a
 chain of deployment issues on Streamlit Cloud (Python version incompatibility,
 file-path handling, and dependency resolution), helped me draft the precise
@@ -107,5 +118,7 @@ SQL syntax needed for DuckDB to parse the downloaded CSV file, and helped
 generate the template structures for our testing files (pytest). All core
 architectural decisions — choosing a real, free, verifiable data source over
 invented data, setting up the three cleaning layers, choosing to drop null
-scores (use of when sth is not null), deciding how to handle missing attendance honestly rather than
-fabricating it (coalesce), and designing the total goals metrics (calculations) — were crafted by myself.
+scores, deciding how to handle missing attendance honestly rather than
+fabricating it, and designing the total goals metric — were directed,
+validated, and finalized by myself.
+```
