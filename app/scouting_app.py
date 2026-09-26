@@ -41,8 +41,10 @@ display_df = df
 if selected_team != "All Clubs":
     display_df = df[(df["home_team"] == selected_team) | (df["away_team"] == selected_team)]
 
-st.subheader("📊 Goals Scored by Home Team")
-scoring_data = df.groupby("home_team")["home_score"].sum().sort_values(ascending=False)
+st.subheader("📊 Total Goals Scored by Club (Home + Away)")
+home_goals = df.groupby("home_team")["home_score"].sum()
+away_goals = df.groupby("away_team")["away_score"].sum()
+scoring_data = home_goals.add(away_goals, fill_value=0).sort_values(ascending=False)
 st.bar_chart(scoring_data)
 
 st.subheader("📋 Clean Processed Data Warehouse Table View")
