@@ -1,7 +1,8 @@
 ## Premier League Match Finder Pipeline
 
 This is an automated data pipeline built to help football scouts, club managers,
-and match analysts look at clean team statistics easily. The system downloads a
+and match analysts look at clean team statistics easily. 
+The system downloads a
 real, official record of Premier League results from the internet, runs it
 through cleaning steps inside a local database filing cabinet, and displays the
 outcomes clearly on a web dashboard screen.
