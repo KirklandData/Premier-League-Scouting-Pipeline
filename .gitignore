@@ -1,0 +1,6 @@
+# Python
+__pycache__/
+*.pyc
+
+# Generated at runtime — never commit these, the pipeline rebuilds them fresh every run
+data/
