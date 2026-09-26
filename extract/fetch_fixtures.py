@@ -5,8 +5,8 @@ import requests
 # generator. Source: football-data.co.uk, a long-standing free, open, no-API-key
 # archive of official match results used widely in football analytics.
 #
-# We deliberately use the 2024/25 season — the last FULLY COMPLETED Premier
-# League season before 2025/26 — so every result in this pipeline is a real,
+# We use the 2024/25 season deliberately: the last FULLY COMPLETED Premier
+# League season before 2025/26, so every result in this pipeline is a real,
 # verifiable match that actually happened.
 SEASON_CODE = "2425"   # 2024/25 season
 DIVISION_CODE = "E0"   # E0 = English Premier League (top flight)
