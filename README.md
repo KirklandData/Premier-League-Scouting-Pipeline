@@ -98,15 +98,9 @@ python -m pytest tests/
 streamlit run app/scouting_app.py
 ```
 
-## Screenshots
-
-
+## Web Dashboard Screen
 
 ![Premier League Scouting Dashboard — full view showing all 380 real 2024/25 season matches, total goals by club, and the clean data table](dashboard_preview.jpg)
-
-
-
-
 
 ![Premier League Scouting Dashboard — filtered view using the sidebar club selector](dashboard_preview1.jpg)
 
