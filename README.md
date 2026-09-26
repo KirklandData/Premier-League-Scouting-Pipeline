@@ -17,20 +17,20 @@ web screen with simple dropdown filters so users can check scoring statistics
 and spot high-scoring matches instantly.
 
 ## The data
-This pipeline uses real, published match results — every row is an actual
+This pipeline uses real, published match results - every row is an actual
 Premier League fixture that was really played, with the real final score.
 
 The source is football-data.co.uk, a long-standing, free, publicly available
 archive of official football results. It requires no password and no API key,
 which keeps the pipeline simple and fully reproducible by anyone.
 
-Specifically, I use the 2024/25 season — the last fully completed Premier
+Specifically, I use the 2024/25 season - the last fully completed Premier
 League season before 2025/26. I chose a completed season rather than an
 in-progress one so the dataset is stable and final, not partway through being
 written.
 
 A note on honesty over completeness: this free feed does not publish official
-stadium attendance figures — that particular data point is normally sold
+stadium attendance figures - that particular data point is normally sold
 separately by other providers. Rather than invent attendance numbers, I leave
 that field empty at the point of download. My existing cleaning layer (below)
 was already built to safely handle a missing attendance value by defaulting
@@ -38,8 +38,8 @@ it to zero — so this isn't a special case I had to add, it's the same logic I
 designed from the start, now doing its actual job against a real gap in real
 data.
 
-The extraction script downloads this file exactly as published — no
-reshaping, no reformatting — and saves it untouched in our raw folder as a
+The extraction script downloads this file exactly as published - no
+reshaping, no reformatting - and saves it untouched in our raw folder as a
 backup file. All cleaning and sorting is done inside our database tables, not
 at download time.
 
@@ -71,28 +71,28 @@ results, without ever duplicating rows.
 
 ## How to run the system
 
-**Step 1 — Download this project folder from GitHub:**
+**Step 1 - Download this project folder from GitHub:**
 ```bash
 git clone https://github.com/KirklandData/Premier-League-Scouting-Pipeline
 cd Premier-League-Scouting-Pipeline
 ```
 
-**Step 2 — Install the necessary packages:**
+**Step 2 - Install the necessary packages:**
 ```bash
 pip install -r requirements.txt
 ```
 
-**Step 3 — Download the real season data and run the database cleaning models:**
+**Step 3 - Download the real season data and run the database cleaning models:**
 ```bash
 python run_models.py
 ```
 
-**Step 4 — Run the automated data quality checks:**
+**Step 4 - Run the automated data quality checks:**
 ```bash
 python -m pytest tests/
 ```
 
-**Step 5 — Launch the web dashboard screen on your browser:**
+**Step 5 - Launch the web dashboard screen on your browser:**
 ```bash
 streamlit run app/scouting_app.py
 ```
@@ -111,4 +111,4 @@ streamlit run app/scouting_app.py
 
 ## Where AI helped
 An AI assistant was deployed as a pair-programmer to write this code. 
-Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility, file-path handling, and dependency resolution), helped me draft the precise SQL syntax needed for DuckDB to parse the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions — choosing a real, free, verifiable data source over invented data, setting up the three cleaning layers, choosing to drop null scores, deciding how to handle missing attendance honestly rather than fabricating it, and designing the total goals metric — were conceived and directed by myself.
+Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility, file-path handling, and dependency resolution), helped me draft the precise SQL syntax needed for DuckDB to parse the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions - choosing a real, free, verifiable data source over invented data, setting up the three cleaning layers, choosing to drop null scores, deciding how to handle missing attendance honestly rather than fabricating it, and designing the total goals metric - were conceived and directed by myself.
