@@ -16,7 +16,6 @@ SELECT
     away_score,
     clean_attendance,
     (home_score + away_score) as total_goals,
-    CASE WHEN (home_score + away_score) >= 4 THEN 1 ELSE 0 END as is_high_scoring_fixture,
-    CASE WHEN clean_attendance >= 50000 THEN 1 ELSE 0 END as is_stadium_sellout
+    CASE WHEN (home_score + away_score) >= 4 THEN 1 ELSE 0 END as is_high_scoring_fixture
 FROM deduplicated_scouting
 WHERE row_seq = 1;
