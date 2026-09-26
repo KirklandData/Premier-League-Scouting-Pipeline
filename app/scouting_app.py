@@ -1,65 +1,49 @@
 import streamlit as st
 import duckdb
-import pandas as pd
 import os
 import sys
 
-# Dynamic root directory resolution
-base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if base_dir not in sys.path:
-    sys.path.insert(0, base_dir)
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
 
-st.set_page_config(page_title="Kirkland Data Engine", layout="wide")
+from run_models import build_data_infrastructure
+
+st.set_page_config(page_title="Premier League Scouting Analytics", layout="wide", page_icon="⚽")
 
 st.title("⚽ Premier League Scouting Analytics Interface")
-st.markdown("### Production-Grade Cloud Analytics & Data Engineering Mart")
+st.markdown("### Real 2024/25 Season Data — Cloud Analytics & Data Engineering Mart")
 
-db_path = os.path.join(base_dir, "data", "scouting_vault.duckdb")
+db_path = os.path.join(ROOT_DIR, "data", "scouting_vault.duckdb")
 
-# SYSTEM DIRECTORY PATH RESOLUTION: Force the build process using a clean write-mode connection
 if not os.path.exists(db_path):
-    with st.spinner("📦 First-time deployment detected. Initialising DuckDB SQL schemas..."):
-        # 1. Force download raw data into folder paths first
-        from extract.fetch_fixtures import fetch_live_data
-        fetch_live_data()
-        
-        # 2. Establish a write-mode bridge connection to ensure the file path is securely initialized
-        conn = duckdb.connect(db_path, read_only=False)
-        conn.close()
-        
-        # 3. Trigger database modeller to compile the 3 SQL layers
-        from run_models import build_data_infrastructure
+    with st.spinner("First-time setup: downloading real season data and building the database..."):
         build_data_infrastructure()
-    st.success("✅ Database structures successfully built!")
 
-try:
-    # Read the final analytical dataset mart table cleanly
-    conn = duckdb.connect(db_path, read_only=True)
-    df = conn.execute("SELECT * FROM mart_scouting_fixtures").df()
-    conn.close()
-    
-    # High-Level Summary Metric Cards
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Total Match Profiles Tracked", len(df))
-    c2.metric("Total Attacking Goals", int(df["total_goals"].sum()))
-    c3.metric("High Scoring Games (4+ Goals)", int(df["is_high_scoring_fixture"].sum()))
-    
-    st.markdown("---")
-    
-    # Sidebar Filter Controls
-    st.sidebar.header("Scouting Filters")
-    selected_team = st.sidebar.selectbox("Isolate Specific Football Club", ["All Clubs"] + list(df["home_team"].unique()))
-    
-    display_df = df
-    if selected_team != "All Clubs":
-        display_df = df[(df["home_team"] == selected_team) | (df["away_team"] == selected_team)]
-        
-    st.subheader("📊 Goal Scoring Distribution Profiles")
-    scoring_data = df.groupby("home_team")["home_score"].sum().sort_values(ascending=False)
-    st.bar_chart(scoring_data)
-    
-    st.subheader("📋 Clean Processed Data Warehouse Table View")
-    st.dataframe(display_df, use_container_width=True)
+conn = duckdb.connect(db_path, read_only=True)
+df = conn.execute("SELECT * FROM mart_scouting_fixtures ORDER BY match_date").df()
+conn.close()
 
-except Exception as e:
-    st.error(f"❌ Read Layer Linkage Exception: {e}")
+st.success(f"✅ Loaded {len(df)} real Premier League matches from the 2024/25 season.")
+
+c1, c2, c3 = st.columns(3)
+c1.metric("Total Matches Tracked", len(df))
+c2.metric("Total Goals Scored", int(df["home_score"].sum() + df["away_score"].sum()))
+c3.metric("High-Scoring Games (4+ Goals)", int(df["is_high_scoring_fixture"].sum()))
+
+st.markdown("---")
+
+st.sidebar.header("Scouting Filters")
+all_teams = sorted(set(df["home_team"]).union(set(df["away_team"])))
+selected_team = st.sidebar.selectbox("Isolate Specific Football Club", ["All Clubs"] + all_teams)
+
+display_df = df
+if selected_team != "All Clubs":
+    display_df = df[(df["home_team"] == selected_team) | (df["away_team"] == selected_team)]
+
+st.subheader("📊 Goals Scored by Home Team")
+scoring_data = df.groupby("home_team")["home_score"].sum().sort_values(ascending=False)
+st.bar_chart(scoring_data)
+
+st.subheader("📋 Clean Processed Data Warehouse Table View")
+st.dataframe(display_df, use_container_width=True)
