@@ -62,7 +62,7 @@ by running python run_models.py.
    had 4 or more goals.
 
 Finally, the Streamlit app (app/scouting_app.py) reads this clean summary
-table and draws the bar charts and grids directly on a web page.
+table and draws the metrics, bar chart, and grid directly on a web page.
 
 Safe Re-runs (Idempotency): Every time the pipeline runs, it deletes the old
 tables and rebuilds them from the raw downloaded file. This means you can run
