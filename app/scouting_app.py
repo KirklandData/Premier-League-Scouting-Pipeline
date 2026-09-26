@@ -56,3 +56,4 @@ column_order = [c for c in display_df.columns if c != "clean_attendance"] + ["cl
 display_df = display_df[column_order]
 
 st.dataframe(display_df, use_container_width=True, hide_index=True)
+
