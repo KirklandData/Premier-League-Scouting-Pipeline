@@ -13,6 +13,6 @@ FROM (
             TRY_STRPTIME(Date, '%d/%m/%Y'),
             TRY_STRPTIME(Date, '%d/%m/%y')
         )::DATE AS match_date
-    FROM read_csv_auto('data/raw/fixtures_snapshot.csv')
+    FROM read_csv('data/raw/fixtures_snapshot.csv', header=True, types={'Date': 'VARCHAR'})
 )
 WHERE HomeTeam IS NOT NULL AND AwayTeam IS NOT NULL;
