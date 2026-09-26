@@ -46,4 +46,6 @@ scoring_data = df.groupby("home_team")["home_score"].sum().sort_values(ascending
 st.bar_chart(scoring_data)
 
 st.subheader("📋 Clean Processed Data Warehouse Table View")
+display_df = display_df.copy()
+display_df["match_date"] = display_df["match_date"].dt.strftime("%Y-%m-%d")
 st.dataframe(display_df, use_container_width=True)
