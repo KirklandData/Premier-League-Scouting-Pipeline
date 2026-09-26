@@ -55,3 +55,4 @@ def test_total_goals_is_non_negative():
     min_goals = conn.execute("SELECT MIN(total_goals) FROM mart_scouting_fixtures").fetchone()[0]
     conn.close()
     assert min_goals >= 0, "Total goals per match should never be negative."
+
