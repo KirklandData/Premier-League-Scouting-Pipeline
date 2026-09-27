@@ -4,7 +4,7 @@ This is an automated data pipeline built to help football scouts, club managers,
 and match analysts look at clean team statistics easily. 
 The system downloads a
 real, official record of Premier League results from the internet, runs it
-through cleaning steps inside a local database filing cabinet, and displays the
+through cleaning steps inside a database filing engine, and displays the
 outcomes clearly on a web dashboard screen.
 
 ## What I built and who it is for
