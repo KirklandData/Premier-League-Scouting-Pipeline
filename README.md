@@ -75,6 +75,7 @@ results, without ever duplicating rows.
 **Step 1 - Download this project folder from GitHub:**
 ```bash
 git clone https://github.com/KirklandData/Premier-League-Scouting-Pipeline
+
 cd Premier-League-Scouting-Pipeline
 ```
 
