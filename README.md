@@ -16,6 +16,14 @@ played in a real Premier League season, loads the files in a grid, checks for mi
 web screen with simple dropdown filters so users can check scoring statistics
 and spot high-scoring matches instantly.
 
+## Web Dashboard Screenhots
+
+![Dashboard header showing key metrics — 380 matches tracked, 1,115 total goals, and 130 high-scoring games](dashboard_preview_1.jpg)
+
+![Bar chart showing total goals scored by each club across home and away fixtures](dashboard_preview_2.jpg)
+
+![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
+
 ## The data
 This pipeline uses real, published match results - every row is an actual
 Premier League fixture that was really played, with the real final score.
@@ -97,14 +105,6 @@ python -m pytest tests/
 ```bash
 streamlit run app/scouting_app.py
 ```
-
-## Web Dashboard Screen
-
-![Dashboard header showing key metrics — 380 matches tracked, 1,115 total goals, and 130 high-scoring games](dashboard_preview_1.jpg)
-
-![Bar chart showing total goals scored by each club across home and away fixtures](dashboard_preview_2.jpg)
-
-![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
 
 ## What I would do next
 - Multi-season history: Extend the extraction step to pull several past
