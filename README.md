@@ -12,8 +12,7 @@ I built this project for football scouts who need reliable match numbers
 without dealing with chaotic, broken data sheets.
 
 The software goes out to the web, fetches a genuine record of every match
-played in a real Premier League season, checks for missing data points, and
-fixes them automatically. It then loads the clean results into an interactive
+played in a real Premier League season, loads the files in a grid, checks for missing data points, fixes them automatically and also calculates useful metrics. Clean results are then platformed using an interactive
 web screen with simple dropdown filters so users can check scoring statistics
 and spot high-scoring matches instantly.
 
