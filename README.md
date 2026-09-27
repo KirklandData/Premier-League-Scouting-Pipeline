@@ -42,7 +42,7 @@ stadium attendance figures - that particular data point is normally sold
 separately by other providers. Rather than invent attendance numbers, I leave
 that field empty at the point of download. My existing cleaning layer (below)
 was already built to safely handle a missing attendance value by defaulting
-it to zero — so this isn't a special case I had to add, it's the same logic I
+it to zero - so this isn't a special case I had to add, it's the same logic I
 designed from the start, now doing its actual job against a real gap in real
 data.
 
