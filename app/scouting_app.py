@@ -55,6 +55,20 @@ display_df["match_date"] = display_df["match_date"].dt.strftime("%Y-%m-%d")
 column_order = [c for c in display_df.columns if c != "clean_attendance"] + ["clean_attendance"]
 display_df = display_df[column_order]
 
+# Relabel columns for display only — the underlying data and column names
+# elsewhere in the pipeline (SQL, tests) are completely unaffected by this
+display_df = display_df.rename(columns={
+    "match_id": "Match ID",
+    "match_date": "Date",
+    "home_team": "Home Team",
+    "away_team": "Away Team",
+    "home_score": "Home Goals",
+    "away_score": "Away Goals",
+    "total_goals": "Total Goals",
+    "is_high_scoring_fixture": "High Scoring?",
+    "clean_attendance": "Attendance",
+})
+
 st.dataframe(display_df, use_container_width=True, hide_index=True)
 
 
