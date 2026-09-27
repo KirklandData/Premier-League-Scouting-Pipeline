@@ -100,9 +100,11 @@ streamlit run app/scouting_app.py
 
 ## Web Dashboard Screen
 
-![Premier League Scouting Dashboard — full view showing all 380 real 2024/25 season matches, total goals by club, and the clean data table](dashboard_preview.jpg)
+![Dashboard header showing key metrics — 380 matches tracked, 1,115 total goals, and 130 high-scoring games](dashboard_preview_1.jpg)
 
-![Premier League Scouting Dashboard — filtered view using the sidebar club selector](dashboard_preview1.jpg)
+![Bar chart showing total goals scored by each club across home and away fixtures](dashboard_preview_2.jpg)
+
+![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
 
 ## What I would do next
 - Multi-season history: Extend the extraction step to pull several past
