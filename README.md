@@ -19,9 +19,7 @@ and spot high-scoring matches instantly.
 ## Web Dashboard Screenhots
 
 ![Dashboard header showing key metrics — 380 matches tracked, 1,115 total goals, and 130 high-scoring games](dashboard_preview_1.jpg)
-
 ![Bar chart showing total goals scored by each club across home and away fixtures](dashboard_preview_2.jpg)
-
 ![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
 
 ## The data
