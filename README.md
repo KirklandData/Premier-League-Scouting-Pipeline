@@ -7,7 +7,7 @@ real, official record of Premier League results from the internet, runs it
 through cleaning steps inside a database filing engine, and displays the
 outcomes clearly on a web dashboard screen.
 
-## What I built and who it is for
+## Manifesto
 I built this project for football scouts who need reliable match numbers
 without dealing with chaotic, broken data sheets.
 
@@ -104,7 +104,7 @@ python -m pytest tests/
 streamlit run app/scouting_app.py
 ```
 
-## What I would do next
+## Possible Extensions
 - Multi-season history: Extend the extraction step to pull several past
   seasons at once, so scouts can compare a team's form year over year, not
   just within a single season.
@@ -116,6 +116,6 @@ streamlit run app/scouting_app.py
   football-data.co.uk publishes results for multiple leagues in the same
   simple format.
 
-## Where AI helped
+## AI Input
 An AI assistant was deployed as a pair-programmer, to write this code. 
 Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility, file-path handling, and dependency resolution), helped me draft the script for extraction/download of the CSV file (rather than using an API), and the precise SQL syntax needed for DuckDB to process the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions - choosing a real, free, verifiable data source over invented data, setting up the three cleaning layers, choosing to drop null scores, deciding how to handle missing attendance honestly rather than fabricating it, and designing the total goals metric - were conceived of and directed by myself.
