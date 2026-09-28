@@ -22,7 +22,7 @@ and spot high-scoring matches instantly.
 ![Bar chart showing total goals scored by each club across home and away fixtures](dashboard_preview_2.jpg)
 ![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
 
-## The data
+## Data
 This pipeline uses real, published match results - every row is an actual
 Premier League fixture that was really played, with the real final score.
 
