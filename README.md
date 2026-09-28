@@ -111,7 +111,7 @@ streamlit run app/scouting_app.py
 - Automatic Cloud Timers: Schedule the pipeline to wake up and run itself
   every Sunday at midnight so the data stays fresh without human intervention
   once a season is live.
-- Leagues Dropdown: Add a menu to allow scouts to switch between English
+- Leagues Dropdown: Add another menu to allow scouts to switch between English
   Premier League, Spanish La Liga, or other divisions, since
   football-data.co.uk publishes results for multiple leagues in the same
   simple format.
