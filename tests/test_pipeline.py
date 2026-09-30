@@ -56,4 +56,3 @@ def test_total_goals_is_non_negative():
     conn.close()
     assert min_goals >= 0, "Total goals per match should never be negative."
 
-
