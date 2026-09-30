@@ -12,4 +12,3 @@ WHERE
     AND away_score IS NOT NULL;
 
 
-
