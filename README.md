@@ -56,16 +56,15 @@ by running `python run_models.py`.
 
 1. raw_matches (sql/01_raw.sql): Reads the real downloaded results file and
    turns it into a simple grid layout — one row per match, with the date,
-   both team names, and both final scores.
+   both team names, both home and away scores, and attendance.
 2. staging_matches (sql/02_staging.sql): This acts as our main filter. If a
    match is completely missing its final score, the system throws that row
    away, because an incomplete report is useless. If a non-critical box like
    stadium attendance is left blank, it automatically puts a '0' in the box
-   so it does not break our math calculations later.
+   so it does not break our maths calculations later.
 3. mart_scouting_fixtures (sql/03_marts.sql): This is our final, neat summary
    table. It checks for duplicate records to ensure every match only appears
-   once. It also creates a simple tick-box, highlighting matches that had 4
-   or more goals.
+   once. It also creates a total goals column and highlights matches that were high scoring (featuring 4+ goals, in binary code, 1=yes and 0=no).
 
 Finally, the Streamlit app (app/scouting_app.py) reads this clean summary
 table and draws the metrics, bar chart, and grid directly on a web page.
