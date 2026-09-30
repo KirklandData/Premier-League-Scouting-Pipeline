@@ -17,4 +17,3 @@ FROM (
 )
 WHERE HomeTeam IS NOT NULL AND AwayTeam IS NOT NULL;
 
-
