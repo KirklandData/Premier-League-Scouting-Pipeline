@@ -20,3 +20,4 @@ SELECT
 FROM deduplicated_scouting
 WHERE row_seq = 1;
 
+
