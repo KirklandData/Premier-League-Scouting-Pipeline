@@ -103,7 +103,7 @@ python -m pytest tests/
 streamlit run app/scouting_app.py
 ```
 
-## Possible Extensions
+## Possible Extensions/Improvements
 - Multi-season history: Extend the extraction step to pull several past
   seasons at once, so scouts can compare a team's form year over year, not
   just within a single season.
