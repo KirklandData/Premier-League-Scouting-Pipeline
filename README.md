@@ -2,8 +2,7 @@
 
 An automated data pipeline built to help football scouts, club managers,
 and match analysts look at clean team statistics easily. 
-The system downloads a
-real, official record of Premier League results from the internet, runs it
+The system downloads an official record of Premier League results from the internet, runs it
 through cleaning steps inside a database filing engine, and displays the
 outcomes clearly on a web dashboard screen.
 
