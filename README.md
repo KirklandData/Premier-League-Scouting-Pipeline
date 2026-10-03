@@ -8,11 +8,11 @@ through cleaning steps inside a database filing engine, and displays the
 outcomes clearly on a web dashboard screen.
 
 ## Manifesto
-I built this project for football scouts who need reliable match numbers
+I built this project for football scholars who need reliable match numbers
 without dealing with chaotic, broken data sheets.
 
-The software goes out to the web, fetches a genuine record of every match
-played in a real Premier League season, loads the files in a grid, checks for missing data points, fixes them automatically and also calculates useful metrics. Clean results are then platformed using an interactive
+The software goes out to the web, fetches a record of every match
+played across a Premier League season, loads the files in a grid, checks for missing data points, fixes them automatically and also calculates useful metrics. Clean results are then platformed using an interactive
 web screen with simple dropdown filters so users can check scoring statistics
 and spot high-scoring matches instantly.
 
