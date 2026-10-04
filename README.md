@@ -13,7 +13,7 @@ and by club.
 ![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
 
 ## Data
-This pipeline uses real, published match results.
+This pipeline uses real, published Premier League match results.
 
 The source is football-data.co.uk, a long-standing, free, publicly available
 archive of official football results. It requires no password and no API key,
