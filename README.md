@@ -1,19 +1,10 @@
 ## Premier League Match Finder Pipeline
 
-An automated data pipeline built to help football scouts, club managers,
-and match analysts look at clean team statistics easily. 
-The system downloads an official record of Premier League results from the internet, runs it
-through cleaning steps inside a database filing engine, and displays the
-outcomes clearly on a web dashboard screen.
+I built this automated data pipeline for football scholars (be they scouts, coaches or analysts) who require reliable match numbers without dealing with chaotic, broken data sheets.
 
-## Manifesto
-I built this project for football scholars who need reliable match numbers
-without dealing with chaotic, broken data sheets.
-
-The software goes out to the web, fetches a record of every match
-played across a Premier League season, loads the files in a grid, checks for missing data points, fixes them automatically and also calculates useful metrics. Clean results are then platformed using an interactive
+The software downloads an official record of Premier League results from the internet, and runs it through cleaning steps in a database filing engine, where the file is loaded in a grid, missing data points are checked for and fixed automatically, and useful metrics (i.e. total goals, high-scoring matches) are calculcated. Clean results are then platformed using an interactive
 web screen with simple dropdown filters so users can check scoring statistics
-and spot high-scoring matches instantly.
+and by club.
 
 ## Web Dashboard Screenhots
 
@@ -22,8 +13,7 @@ and spot high-scoring matches instantly.
 ![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
 
 ## Data
-This pipeline uses real, published match results - every row is an actual
-Premier League fixture that was really played, with the real final score.
+This pipeline uses real, published match results.
 
 The source is football-data.co.uk, a long-standing, free, publicly available
 archive of official football results. It requires no password and no API key,
@@ -34,14 +24,7 @@ League season before 2025/26. I chose a completed season rather than an
 in-progress one so the dataset is stable and final, not partway through being
 written.
 
-A note on honesty over completeness: this free feed does not publish official
-stadium attendance figures - that particular data point is normally sold
-separately by other providers. Rather than invent attendance numbers, I leave
-that field empty at the point of download. My existing cleaning layer (below)
-was already built to safely handle a missing attendance value by defaulting
-it to zero - so this isn't a special case I had to add, it's the same logic I
-designed from the start, now doing its actual job against a real gap in real
-data.
+This free feed does not publish official stadium attendance figures (that particular data point may be sold separately by other providers). Rather than invent attendance numbers, I leave that field empty at the point of download. My existing cleaning layer (below) was already built to safely handle a missing attendance value by defaulting it to zero (coalesce function) - deploying the same logic I intended from the start, and now doing its actual job against a real gap in real data.
 
 The extraction script downloads this file exactly as published - no
 reshaping, no reformatting - and saves it untouched in our raw folder as a
