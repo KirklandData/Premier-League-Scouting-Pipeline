@@ -56,3 +56,11 @@ def test_total_goals_is_non_negative():
     conn.close()
     assert min_goals >= 0, "Total goals per match should never be negative."
 
+def test_matches_total_matches_expected_season_count():
+    conn = get_connection()
+    row_count = conn.execute("SELECT COUNT(*) FROM mart_scouting_fixtures").fetchone()[0]
+    conn.close()
+    # A 20-team Premier League season: every team plays every other team
+    # home and away, so 20 x 19 = 380 total matches. This checks the
+    # pipeline captured every fixture, not just that the ones it has are clean.
+    assert row_count == 380, f"Expected 380 matches for a complete 20-team season, got {row_count}."
