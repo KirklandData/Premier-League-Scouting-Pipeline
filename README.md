@@ -47,10 +47,10 @@ by running `python run_models.py`.
 Finally, the Streamlit app (app/scouting_app.py) reads this clean summary
 table and draws the metrics, bar chart, and grid directly on an interactive web page.
 
-Safe Re-runs (Idempotency): Every time the pipeline runs, it deletes the old
+Idempotency: Every time the pipeline runs, it deletes the old
 tables and rebuilds them from the raw downloaded file. This means you can run
 it a hundred times in a row and it will always produce the exact same clean
-results, without ever duplicating rows.
+results, without ever duplicating rows. Automated data quality checks go a long way to ensuring this.
 
 ## How to run the system
 
