@@ -1,10 +1,8 @@
 ## Premier League Match Finder Pipeline
 
-I built this automated data pipeline for football scholars (be they scouts, coaches or analysts) who require reliable match numbers without dealing with chaotic, broken data sheets.
+An automated data pipeline built for football scholars (be they scouts, coaches or analysts) who require reliable match numbers without dealing with chaotic, broken data sheets.
 
-The software downloads an official record of Premier League results from the internet, and runs it through cleaning steps in a database filing engine, where the file is loaded in a grid, missing data points are checked for and fixed automatically, and useful metrics (i.e. total goals, high-scoring matches) are calculcated. Clean results are then platformed using an interactive
-web screen with simple dropdown filters so users can check scoring statistics
-and by club.
+The software downloads an official record of Premier League results from the internet, and runs it through cleaning steps in a database filing engine, where the file is loaded in a grid, missing data points are checked for and fixed automatically, and useful metrics (i.e. total goals, high-scoring matches) are calculcated. Clean results are then platformed using an interactive web screen, complete with a simple dropdown filter so users can check match statistics by club.
 
 ## Web Dashboard Screenhots
 
@@ -15,11 +13,11 @@ and by club.
 ## Data
 This pipeline uses real, published Premier League match results.
 
-The source is football-data.co.uk, a long-standing, free, publicly available
+The source is football-data.co.uk; a long-standing, free, publicly available
 archive of official football results. It requires no password and no API key,
 which keeps the pipeline simple and fully reproducible by anyone.
 
-Specifically, I use the 2024/25 season - the last fully completed Premier
+Specifically, I use the 2024/25 season - the  fully completed Premier
 League season before 2025/26. I chose a completed season rather than an
 in-progress one so the dataset is stable and final, not partway through being
 written.
@@ -49,7 +47,7 @@ by running `python run_models.py`.
    once. It also creates a total goals column and highlights matches that were high scoring (featuring 4+ goals, in binary code, 1=yes and 0=no).
 
 Finally, the Streamlit app (app/scouting_app.py) reads this clean summary
-table and draws the metrics, bar chart, and grid directly on a web page.
+table and draws the metrics, bar chart, and grid directly on an interactive web page.
 
 Safe Re-runs (Idempotency): Every time the pipeline runs, it deletes the old
 tables and rebuilds them from the raw downloaded file. This means you can run
@@ -99,4 +97,4 @@ streamlit run app/scouting_app.py
 
 ## AI Input
 An AI assistant was deployed as a pair-programmer, to write this code. 
-Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility, file-path handling, and dependency resolution), helped me draft the script for extraction/download of the CSV file (rather than using an API), and the precise SQL syntax needed for DuckDB to process the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions - choosing a real, free, verifiable data source over invented data, setting up the three cleaning layers, choosing to drop null scores, deciding how to handle missing attendance honestly rather than fabricating it, and designing the total goals metric - were conceived of and directed by myself.
+Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility), helped me draft the script for extraction/download of the CSV file (rather than using an API), and the precise SQL syntax needed for DuckDB to process the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions - choosing a real and free data source over invented data, setting up the three cleaning layers, the logic to drop null scores and patch missing attendances, and designing the total goals metric - were conceived of and directed by myself.
