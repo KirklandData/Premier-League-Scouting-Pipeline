@@ -1,4 +1,4 @@
-## ⚽ Premier League Scouting Engine: Automated Cloud Data Warehouse 
+## ⚽ PL Scouting Engine: Automated Cloud Data Warehouse 
 
 An automated data pipeline built for football scholars (be they scouts, coaches or analysts) who require reliable match numbers without dealing with chaotic, broken data sheets.
 
