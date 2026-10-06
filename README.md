@@ -11,10 +11,8 @@ The software downloads an official record of Premier League results from the int
 ![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
 
 ## Data
-This pipeline uses real, published Premier League match results.
-
-The source is football-data.co.uk; a long-standing, free, publicly available
-archive of official football results. It requires no password and no API key,
+This pipeline uses published Premier League match results. The source is football-data.co.uk; a long-standing, free, publicly available
+archive of Premier League football results. It requires no password and no API key,
 which keeps the pipeline simple and fully reproducible by anyone.
 
 Specifically, I use the 2024/25 season - the  fully completed Premier
@@ -97,5 +95,5 @@ streamlit run app/scouting_app.py
 
 ## AI Input
 An AI assistant was deployed as a pair-programmer, to write this code. 
-Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility), helped me draft the script for extraction/download of the CSV file (rather than using an API), and the precise SQL syntax needed for DuckDB to process the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions - choosing a real and free data source over invented data, setting up the three cleaning layers, the logic to drop null scores and patch missing attendances, and designing the total goals metric - were conceived of and directed by myself.
+Specifically, the AI helped me debug a chain of deployment issues on Streamlit Cloud (Python version incompatibility), helped me draft the script for extraction/download of the CSV file (rather than using an API), and the precise SQL syntax needed for DuckDB to process the downloaded CSV file, and helped generate the template structures for our testing files (pytest). All core architectural decisions - choosing a genuine and free data source over invented data, setting up the three cleaning layers, the logic to drop null scores and patch missing attendances, and designing the total goals metric - were conceived of and directed by myself.
 
