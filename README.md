@@ -44,7 +44,7 @@ by running `python run_models.py`.
    table. It checks for duplicate records to ensure every match only appears
    once. It also creates a total goals column and highlights matches that were high scoring (featuring 4+ goals, in binary code, 1=yes and 0=no).
 
-Finally, the Streamlit app (app/scouting_app.py) reads this clean summary
+Finally, the Streamlit cloud app (app/scouting_app.py) reads this clean summary
 table and draws the metrics, bar chart, and grid directly on an interactive web page.
 
 Idempotency: Every time the pipeline runs, it deletes the old
