@@ -2,7 +2,7 @@
 
 An automated data pipeline built for football scholars (be they scouts, coaches or analysts) who require reliable match numbers without dealing with chaotic, broken data sheets.
 
-The software downloads an official record of Premier League results from the internet, and runs it through cleaning steps in a database filing engine, where the file is loaded in a grid, missing data points are checked for and fixed automatically, and useful metrics (i.e. total goals, high-scoring matches) are calculcated. Clean results are then platformed using an interactive web screen, complete with a simple dropdown filter so users can check match statistics by club.
+Python oversees the download of a file record of Premier League results from the internet (by running its extraction script), and runs it through cleaning steps in a database filing engine, where the file is loaded in a grid, missing data points are checked for and fixed automatically, and useful metrics (i.e. total goals, high-scoring matches) are calculcated. Clean results are then platformed using an interactive web screen, complete with a simple dropdown filter so users can check match statistics by club.
 
 ## Web Dashboard Screenhots
 
