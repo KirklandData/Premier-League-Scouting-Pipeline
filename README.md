@@ -27,7 +27,7 @@ reshaping, no reformatting - and saves it untouched in our raw folder as a
 backup file. All cleaning and sorting is done inside our database tables, not
 at download time.
 
-## How it works
+## Architecture
 The pipeline uses a lightweight database engine called DuckDB to run three
 separate SQL cleaning layers one after the other. This process is triggered
 by running `python run_models.py`.
