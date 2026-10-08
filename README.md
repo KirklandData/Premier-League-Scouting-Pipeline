@@ -52,7 +52,7 @@ tables and rebuilds them from the raw downloaded file. This means you can run
 it a hundred times in a row and it will always produce the exact same clean
 results, without ever duplicating rows. Automated data quality checks go a long way to ensuring this.
 
-## How to run the system
+## Installation & Setup
 
 **Step 1 - Download this project folder from GitHub:**
 ```bash
