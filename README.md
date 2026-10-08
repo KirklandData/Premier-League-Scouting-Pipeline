@@ -92,6 +92,12 @@ streamlit run app/scouting_app.py
   Premier League, Spanish La Liga, or other divisions, since
   football-data.co.uk publishes results for multiple leagues in the same
   simple format.
+- Incremental Processing: The pipeline currently drops and rebuilds every
+  table from scratch on every run, which is appropriate at 380 rows and
+  costs milliseconds. If multi-season history (above) significantly grew
+  the dataset, I'd revisit this and move to incremental processing instead: 
+  only loading and transforming new or changed matches rather than
+  rebuilding everything every time.
 
 ## AI Input
 An AI assistant was deployed as a pair-programmer, in writing this code. 
