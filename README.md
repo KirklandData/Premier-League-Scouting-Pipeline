@@ -9,6 +9,7 @@ Python oversees the download of a file record of Premier League results from the
 ![Dashboard header showing key metrics — 380 matches tracked, 1,115 total goals, and 130 high-scoring games](dashboard_preview_1.jpg)
 ![Bar chart showing total goals scored by each club across home and away fixtures](dashboard_preview_2.jpg)
 ![Clean data table view with renamed, readable column headers for every match](dashboard_preview_3.jpg)
+![Clean data table view with filter on, only showing Arsenal matches](dashboard_preview_4.jpg)
 
 ## Data
 This pipeline uses published Premier League match results. The source is football-data.co.uk; a long-standing, free, publicly available
